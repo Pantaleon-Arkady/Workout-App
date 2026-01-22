@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Laravel React Docker</title>
+    <meta charset="UTF-8">
+    <title>Workout Tracker</title>
+
+    @viteReactRefresh
+
     @vite('resources/js/app.jsx')
 </head>
-<body>
+<body class="bg-light">
+
     <div id="app"></div>
-    <div>Laravel Render</div>
+
 </body>
 </html>
