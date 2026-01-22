@@ -1,4 +1,4 @@
-function Landing() {
+function LandingPage() {
     return (
         <div>
             <h1 style={{ color: "red" }}>
@@ -9,4 +9,4 @@ function Landing() {
     );
 }
 
-export default Landing;
+export default LandingPage;
