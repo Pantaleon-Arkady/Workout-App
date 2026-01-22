@@ -4,7 +4,7 @@ function Landing() {
             <h1 style={{ color: "red" }}>
                 Landing page is rendering
             </h1>
-            <button class="btn btn-primary">Test Bootstrap</button>
+            <button class="btn btn-primary">Tests Bootstrap</button>
         </div>
     );
 }
