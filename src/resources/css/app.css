@@ -15,6 +15,14 @@ html, body {
     overflow-x: hidden;
 }
 
+.text-xs {
+    font-size: 0.65rem;
+}
+
+.w-80 {
+    width: 80%;
+}
+
 @media (max-width: 700px) {
 
 }
