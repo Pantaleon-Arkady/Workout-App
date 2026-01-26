@@ -1,6 +1,20 @@
 import { Link } from "react-router-dom";
+import RegisterForm from "../forms/register";
+import LoginForm from "../forms/login";
+import { useState } from "react";
 
 function LandingPage() {
+
+    const [isRegister, setIsRegister] = useState(false);
+
+    const showLogIn = () => {
+        setIsRegister(false);
+    };
+
+    const showRegister = () => {
+        setIsRegister(true);
+    };
+
     return (
         <div className="d-flex flex-column text-white vh-100">
             <div className="border bg-black px-5 py-4 text-center">
@@ -9,27 +23,19 @@ function LandingPage() {
                 </div>
             </div>
             <div className="border d-flex flex-column flex-grow-1 justify-content-center align-items-center">
-                <div className="text-xs text-center">
+                <div className="text-xxs text-center px-3">
                     This app serves as a tracker and note for your workout progess, it helps for easier readability and visualizations of your workouts.
                 </div>
-                <form action="" className="border mt-3 p-5 w-80 rounded bg-white text-black">
-                        <h4>Register</h4>
-                        <div className="border mb-3 mt-3">
-                            <label>Username:</label>
-                            <input className="form-control" />
-                        </div>
-                        <div className="border mb-3">
-                            <label>Email:</label>
-                            <input className="form-control" />
-                        </div>
-                        <div className="border mb-3">
-                            <label>Password:</label>
-                            <input className="form-control" />
-                        </div>
-                        <button className="btn btn-light">
-                            Register
-                        </button>
-                    </form>
+                {isRegister?
+                    <RegisterForm/>
+                    :
+                    <LoginForm />
+                }
+                <div className="mt-3 text-xs">
+                    <a onClick={showLogIn}>Log in </a>
+                    or
+                    <a onClick={showRegister}> Register?</a>
+                </div>
             </div>
         </div>
     );
