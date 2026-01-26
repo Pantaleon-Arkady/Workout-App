@@ -1,7 +1,7 @@
 function RegisterForm() {
 
     return (
-        <form action="" className="border mt-3 p-3 w-80 rounded bg-white text-black d-flex flex-column align-items-center">
+        <form action="" className="border mt-3 p-3 w-80 rounded bg-white text-black d-flex flex-column align-items-center px-3 w-100 w-md-50">
 
             <div className="fs-5 fw-bold">Register</div>
 
