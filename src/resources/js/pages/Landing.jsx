@@ -15,9 +15,24 @@ function LandingPage() {
                     </div>
                 </div>
                 <div className="border w-50 d-flex align-items-center justify-content-start ps-5">
-                    <div className="border p-5">
-                        Sign up Div
-                    </div>
+                    <form action="" className="border p-5">
+                        <h4>Register</h4>
+                        <div className="border mb-3 mt-3">
+                            <label>Username:</label>
+                            <input className="form-control" />
+                        </div>
+                        <div className="border mb-3">
+                            <label>Email:</label>
+                            <input className="form-control" />
+                        </div>
+                        <div className="border mb-3">
+                            <label>Password:</label>
+                            <input className="form-control" />
+                        </div>
+                        <button className="btn btn-light">
+                            Register
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

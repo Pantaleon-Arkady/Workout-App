@@ -6,3 +6,7 @@
     padding: 0;
     font-family: 'Space Mono', monospace;
 }
+
+@media (max-width: 700px) {
+    
+}
