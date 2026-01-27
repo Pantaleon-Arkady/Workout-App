@@ -8,6 +8,7 @@ services:
       - ./src:/var/www
     depends_on:
       - node
+      - postgres
 
   nginx:
     image: nginx:alpine
@@ -30,3 +31,17 @@ services:
       - "5173:5173"
     tty: true
 
+  postgres:
+    image: postgres:16-alpine
+    container_name: laravel_postgres
+    environment:
+      POSTGRES_DB: laravel
+      POSTGRES_USER: laravel
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
