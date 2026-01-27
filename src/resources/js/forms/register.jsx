@@ -3,7 +3,7 @@ function RegisterForm() {
     return (
         <form action="" className="form_div border mt-3 p-3 rounded bg-white text-black d-flex flex-column align-items-center">
 
-            <div className="fs-5 fw-bold">Register</div>
+            <h4 className="fw-bold">Register</h4>
 
             <div className="border mb-2 mt-3 pt-1 pb-3 px-3 bg-secondary text-white rounded">
                 <label>Username:</label>
