@@ -18,24 +18,28 @@ function LandingPage() {
     return (
         <div className="d-flex flex-column text-white vh-100">
             <div className="border bg-black px-5 py-4 text-center">
-                <div className="header_title fs-2 fw-bold">
+                <div className="text-center text-md-start fs-2 fw-bold">
                     Workout Tracker
                 </div>
             </div>
             <div className="border d-flex flex-column flex-md-row flex-grow-1 justify-content-center align-items-center px-4">
-                <div className="text-xxs text-center px-3 w-100 w-md-50">
-                    This app serves as a tracker and note for your workout progess, it helps for easier readability and visualizations of your workouts.
+                <div className="landing_greetings_wrapper px-3 px-md-0 w-100 w-md-50">
+                    <p className="text-center landing_greetings">
+                        This app serves as a tracker and note for your workout progess, it helps for easier readability and visualizations of your workouts.
+                    </p>
                 </div>
-                {isRegister?
-                    <RegisterForm/>
-                    :
-                    <LoginForm />
-                }
-                <div className="mt-3 text-xs d-md-none">
+                <div className="px-3 w-100 w-md-50">
+                    {isRegister?
+                        <RegisterForm/>
+                        :
+                        <LoginForm />
+                    }
+                </div>
+                <label className="mt-3  d-md-none">
                     <a onClick={showLogIn}>Log in </a>
                     or
                     <a onClick={showRegister}> Register?</a>
-                </div>
+                </label>
             </div>
         </div>
     );
