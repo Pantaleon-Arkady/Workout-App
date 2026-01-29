@@ -16,14 +16,21 @@ class UserController extends Controller
             'password' => 'required|string',
         ]);
 
-        //email or name check
         $user = User::where('email', $validated['namemail'])
             ->orWhere('name', $validated['namemail'])
             ->first();
 
-        if (! $user || ! Hash::check($validated['password'], $user->password)) {
+        if (! $user) {
             return response()->json([
-                'message' => 'Invalid credentials',
+                'field' => 'namemail',
+                'message' => 'User not found.',
+            ], 401);
+        }
+
+        if (! Hash::check($validated['password'], $user->password)) {
+            return response()->json([
+                'field' => 'password',
+                'message' => 'Incorrect password.',
             ], 401);
         }
 
@@ -40,7 +47,7 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $validated = $request->validate([
-            'name'=> 'required|string|min:3|max:50',
+            'name' => 'required|string|min:3|max:50',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6'
         ]);
