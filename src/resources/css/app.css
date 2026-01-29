@@ -19,7 +19,7 @@ p {
     font-size: 0.6rem;
 }
 
-label, input, button {
+label, input, button, .text_sz {
     font-size: 0.69rem !important;
 }
 
@@ -45,7 +45,7 @@ html, body {
         font-size: 2rem;
     }
 
-    p, label, input, button {
+    p, label, input, button, .text_sz {
         font-size: 0.9rem !important;
     }
 
