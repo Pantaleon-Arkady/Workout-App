@@ -5,9 +5,38 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function login(Request $request)
+    {
+        $validated = $request->validate([
+            'namemail' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        //email or name check
+        $user = User::where('email', $validated['namemail'])
+            ->orWhere('name', $validated['namemail'])
+            ->first();
+
+        if (! $user || ! Hash::check($validated['password'], $user->password)) {
+            return response()->json([
+                'message' => 'Invalid credentials',
+            ], 401);
+        }
+
+        return response()->json([
+            'message' => 'Login successful',
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+            ],
+        ]);
+    }
+
     public function register(Request $request)
     {
         $validated = $request->validate([
