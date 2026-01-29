@@ -2,37 +2,60 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
+    const [namemail, setNameMail] = useState("");
+    const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
+    const [serverError, setServerError] = useState("");
 
-    const [loginData, setLoginData] = useState({
-        namemail: "",
-        password: ""
-    });
+    function validateForm() {
+        const newErrors = {};
 
-    const handleChange = (e) => {
-        setLoginData({
-            ...loginData,
-            [e.target.name]: e.target.value,
-        })
-    };
+        if (!namemail.trim()) {
+            newErrors.namemail = "This field is required.";
+        }
+
+        if (!password.trim()) {
+            newErrors.password = "Password is required.";
+        }
+
+        return newErrors;
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setServerError("");
+        setErrors({});
+
+        const validationErrors = validateForm();
+        setErrors(validationErrors);
+
+        if (Object.keys(validationErrors).length > 0) return;
+
         const res = await fetch("/api/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(loginData)
+            body: JSON.stringify({ namemail, password })
         });
 
-        if (res.ok) {
-            navigate("/home");
-        } else {
-            const data = await res.json();
-            console.error(data);
-            alert("Failed to login");
+        const data = await res.json();
+
+        if (!res.ok) {
+            if (data.field) {
+                setErrors({ [data.field]: data.message });
+            } else {
+                setServerError(data.message || "Login failed");
+            }
+            return;
         }
+
+        // ✅ success
+        navigate("/home", {
+            state: { user: data.user }
+        });
     };
+
 
     return (
         <form onSubmit={handleSubmit} className="form_div border mt-3 p-3 rounded bg-white text-black d-flex flex-column align-items-center">
@@ -42,28 +65,36 @@ function LoginForm() {
             <div className="border mb-2 pt-1 pb-3 px-3 bg-secondary text-white rounded">
                 <label>Username or Email:</label>
                 <input
-                    name="namemail"
-                    value={loginData.namemail}
-                    onChange={handleChange}
-                    className="form-control" 
-                    placeholder="Enter your username or email..." />
+                    type="text"
+                    className={`form-control ${errors.namemail ? "is-invalid" : ""}`}
+                    value={namemail}
+                    onChange={(e) => setNameMail(e.target.value)}
+                    placeholder="Enter your username or email"
+                />
+                {errors.namemail && <div className="text_sz text-light bg-danger rounded py-1 px-3 mt-1">{errors.namemail}</div>}
             </div>
 
             <div className="border mb-3 pt-1 pb-3 px-3 bg-secondary text-white rounded">
                 <label>Password:</label>
                 <input
-                    name="password"
                     type="password"
-                    value={loginData.password}
-                    onChange={handleChange}
-                    className="form-control" 
-                    placeholder="Enter your password..." />
+                    className={`form-control ${errors.password ? "is-invalid" : ""}`}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your password..."
+                />
+                {errors.password && <div className="text_sz text-light bg-danger rounded py-1 px-3 mt-1">{errors.password}</div>}
             </div>
 
             <button className="btn btn-outline-dark btn-fs w-50">
                 Log in
             </button>
 
+            {serverError && (
+                <div className="text-light bg-danger rounded py-1 px-3 mt-1">
+                    {serverError}
+                </div>
+            )}
         </form>
     );
 }
