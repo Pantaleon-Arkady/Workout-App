@@ -1,8 +1,15 @@
+import { useLocation } from "react-router-dom";
+
 function Home() {
+    const { state } = useLocation();
+    const user = state?.user;
+
     return (
         <div className="container mt-5">
-            <h1 style={{ color: "green" }}>You made it to /home!</h1>
-            <p className="lead">React Router is navigating client-side.</p>
+            <h2 className="text-success bg-white rounded">
+                {user ? `Welcome back, ${user.name}!` : "Welcome!"}
+            </h2>
+            <p className="lead bg-white">React Router is navigating client-side.</p>
             <button className="btn btn-success">Bootstrap still works here</button>
         </div>
     );
