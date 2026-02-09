@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import RegisterForm from "../forms/register";
 import LoginForm from "../forms/login";
 import { useState } from "react";
+import Headers from "../components/heading";
 
 function LandingPage() {
 
@@ -17,11 +18,7 @@ function LandingPage() {
 
     return (
         <div className="d-flex flex-column text-white vh-100">
-            <div className="bg-black px-5 py-4 text-center">
-                <div className="text-center text-md-start fs-2 fw-bold">
-                    Workout Tracker
-                </div>
-            </div>
+            <Headers />
             <div className="d-flex flex-column flex-md-row flex-grow-1 justify-content-center align-items-center px-4">
                 <div className="landing_greetings_wrapper px-3 px-md-0 w-100 w-md-50 d-flex flex-column">
                     <p className="text-center landing_greetings">
