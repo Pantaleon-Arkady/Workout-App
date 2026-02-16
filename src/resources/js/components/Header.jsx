@@ -11,7 +11,9 @@ return (
                 Workout Tracker
             </div>
             {rightFeature?
-                (<>SignUp</>)
+                (
+                    user? (<>Logout</>) : (<>Login</>)
+                )
                 :
                 (<>About Us</>)
             }
