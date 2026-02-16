@@ -2,10 +2,14 @@ import Headers from "../components/Header";
 import { useAuth } from "../context/AuthContext";
 
 function Home() {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
+
+    if (loading) {
+        return <p className="text-white">Loading...</p>;
+    }
 
     if (!user) {
-        return <p className="text-white">Loading...</p>;
+        return <p className="text-white">Please Log in</p>;
     }
 
     return (
