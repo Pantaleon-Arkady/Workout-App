@@ -1,9 +1,12 @@
-import { useLocation } from "react-router-dom";
 import Headers from "../components/Header";
+import { useAuth } from "../context/AuthContext";
 
 function Home() {
-    const { state } = useLocation();
-    const user = state?.user;
+    const { user } = useAuth();
+
+    if (!user) {
+        return <p className="text-white">Loading...</p>;
+    }
 
     return (
         <div className="d-flex flex-column text-white vh-100">
