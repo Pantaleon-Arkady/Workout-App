@@ -1,18 +1,33 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function Headers({ rightFeature }) {
+    const {user, logout} = useAuth();
+    const navigate = useNavigate();
 
-const {user, logout} = useAuth();
+    const handleLogout = () => {
+        logout();
+        navigate("/");
+    }
 
-return (
+    return (
         <div className="bg-black px-5 py-4 text-center d-flex flex-row justify-content-between">
             <div className="text-center text-md-start fs-2 fw-bold">
                 Workout Tracker
             </div>
             {rightFeature?
                 (
-                    user? (<>Logout</>) : (<>Login</>)
+                    user? 
+                    (
+                        <button 
+                            onClick={handleLogout}
+                            className="btn btn-outline-danger"
+                        >
+                            Logout
+                        </button>
+                    ) 
+                    : 
+                    (<>Login</>)
                 )
                 :
                 (<>About Us</>)
