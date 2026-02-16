@@ -7,7 +7,9 @@ function Home() {
 
     return (
         <div className="d-flex flex-column text-white vh-100">
-            <Headers />
+            <Headers 
+                rightFeature={true}
+            />
             <h2 className="text-success bg-white rounded">
                 {user ? `Welcome back, ${user.name}!` : "Welcome!"}
             </h2>
