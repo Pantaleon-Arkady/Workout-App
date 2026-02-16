@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function LoginForm() {
     const [namemail, setNameMail] = useState("");
@@ -7,6 +8,8 @@ function LoginForm() {
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [serverError, setServerError] = useState("");
+
+    const { login } = useAuth();
 
     function validateForm() {
         const newErrors = {};
@@ -49,11 +52,10 @@ function LoginForm() {
             }
             return;
         }
+        
 
-        // ✅ success
-        navigate("/home", {
-            state: { user: data.user }
-        });
+        login(data.user);
+        navigate("/home");
     };
 
 
