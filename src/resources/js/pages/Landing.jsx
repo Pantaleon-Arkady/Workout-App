@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import RegisterForm from "../forms/register";
 import LoginForm from "../forms/login";
 import { useState } from "react";
-import Headers from "../components/heading";
+import Headers from "../components/Header";
 
 function LandingPage() {
 

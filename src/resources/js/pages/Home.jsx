@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import Headers from "../components/heading";
+import Headers from "../components/Header";
 
 function Home() {
     const { state } = useLocation();
