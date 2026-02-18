@@ -9,7 +9,12 @@ function Home() {
     }
 
     if (!user) {
-        return <p className="text-white">Please Log in</p>;
+        return (
+            <>
+                <Headers rightFeature={true}/>
+                <p className="text-white">Please Log in</p>
+            </>
+        );
     }
 
     return (
