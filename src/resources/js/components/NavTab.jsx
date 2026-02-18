@@ -1,16 +1,14 @@
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 
 function NavTab() {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
 
-    const navBtn = document.getElementById("navBtn");
-    const navTab = document.getElementById("navTab");
-
-    navBtn.addEventListener('click', {
-        navTab.classList.remove('hidden')
-    });
+    const navBtn = useRef(null);
+    const navTab = useRef(null);
+    const [nav, setNav] = useState(false);
 
     const handleLogout = () => {
         logout();
@@ -22,20 +20,24 @@ function NavTab() {
             <>
                 <button
                     className="btn btn-outline-secondary"
-                    id="navBtn" >
+                    ref={navBtn}
+                    onClick={() => setNav(!nav)}
+                >
                     Nav
                 </button>
-                <div
-                    id="navTab"
-                    className="fixed inset-0 z-50 hidden"
-                >
-                    <button
-                        onClick={handleLogout}
-                        className="btn btn-outline-danger"
+                {nav && (
+                    <div
+                        ref={navTab}
+                        className="fixed inset-0 z-50 hidden bg-whited"
                     >
-                        Logout
-                    </button>
-                </div>
+                        <button
+                            onClick={handleLogout}
+                            className="btn btn-outline-danger"
+                        >
+                            Logout
+                        </button>
+                    </div>
+                )}
             </>
             :
             <></>
