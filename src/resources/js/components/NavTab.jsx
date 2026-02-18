@@ -6,6 +6,11 @@ function NavTab() {
     const navigate = useNavigate();
 
     const navBtn = document.getElementById("navBtn");
+    const navTab = document.getElementById("navTab");
+
+    navBtn.addEventListener('click', {
+        navTab.classList.remove('hidden')
+    });
 
     const handleLogout = () => {
         logout();
@@ -20,12 +25,17 @@ function NavTab() {
                     id="navBtn" >
                     Nav
                 </button>
-                <button
-                    onClick={handleLogout}
-                    className="btn btn-outline-danger"
+                <div
+                    id="navTab"
+                    className="fixed inset-0 z-50 hidden"
                 >
-                    Logout
-                </button>
+                    <button
+                        onClick={handleLogout}
+                        className="btn btn-outline-danger"
+                    >
+                        Logout
+                    </button>
+                </div>
             </>
             :
             <></>
