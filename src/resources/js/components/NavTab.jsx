@@ -29,17 +29,27 @@ function NavTab() {
                 {nav && (
                     <div
                         ref={navTab}
-                        className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-flex flex-column"
+                        className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75"
                     >
-                        <button>
-
-                        </button>
-                        <button
-                            onClick={handleLogout}
-                            className="btn btn-outline-danger"
+                        <div 
+                            className="w-75 d-flex flex-column p-2 bg-black h-100"
                         >
-                            Logout
-                        </button>
+                            <div className="d-flex justify-content-end pb-3">
+                                <button
+                                    ref={closeNav}
+                                    onClick={() => setNav(false)}
+                                    className="btn btn-outline-light"
+                                >
+                                    X
+                                </button>
+                            </div>
+                            <button
+                                onClick={handleLogout}
+                                className="btn btn-outline-danger"
+                            >
+                                Logout
+                            </button>
+                        </div>
                     </div>
                 )}
             </>
