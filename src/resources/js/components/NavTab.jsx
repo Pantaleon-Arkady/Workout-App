@@ -20,18 +20,21 @@ function NavTab() {
         user ?
             <>
                 <button
-                    className="btn btn-outline-secondary"
-                    ref={navBtn}
+                    className="btn btn-outline-light p-2 bg-white"
                     onClick={() => setNav(!nav)}
                 >
-                    Nav
+                    <img
+                        src="/statics/three-v-dot.svg"
+                        alt=""
+                        className="w-7 h-7 bg-white p-1.5 rounded-md block"
+                    />
                 </button>
                 {nav && (
                     <div
                         ref={navTab}
                         className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75"
                     >
-                        <div 
+                        <div
                             className="w-75 d-flex flex-column p-2 bg-black h-100"
                         >
                             <div className="d-flex justify-content-end pb-3">

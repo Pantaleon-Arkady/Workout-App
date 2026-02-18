@@ -3,7 +3,7 @@ import NavTab from "./NavTab";
 function Headers({ rightFeature }) {
 
     return (
-        <div className="bg-black px-5 py-4 text-center d-flex flex-row justify-content-between">
+        <div className="bg-black px-3 py-4 text-center d-flex flex-row justify-content-between">
             <div>
                 {rightFeature?
                     (
