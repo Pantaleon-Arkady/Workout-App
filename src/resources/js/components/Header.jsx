@@ -1,8 +1,16 @@
 import NavTab from "./NavTab";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Headers({ rightFeature }) {
     const { user, logout } = useAuth();
+
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate("/");
+    }
 
     if (!user) {
         return (
@@ -29,7 +37,12 @@ function Headers({ rightFeature }) {
                 Workout Tracker
             </div>
             <div className="desktop_header_feature">
-                Desktop Header Feature
+                <button
+                    className="btn btn-outline-danger"
+                    onClick={handleLogout}
+                >
+                    Logout
+                </button>
             </div>
         </div>
     )
