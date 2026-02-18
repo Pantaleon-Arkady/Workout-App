@@ -8,6 +8,7 @@ function NavTab() {
 
     const navBtn = useRef(null);
     const navTab = useRef(null);
+    const closeNav = useRef(null);
     const [nav, setNav] = useState(false);
 
     const handleLogout = () => {
@@ -28,8 +29,11 @@ function NavTab() {
                 {nav && (
                     <div
                         ref={navTab}
-                        className="fixed inset-0 z-50 hidden bg-whited"
+                        className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-flex flex-column"
                     >
+                        <button>
+
+                        </button>
                         <button
                             onClick={handleLogout}
                             className="btn btn-outline-danger"
