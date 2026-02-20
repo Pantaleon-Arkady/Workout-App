@@ -39,8 +39,25 @@ html, body {
     width: 80%;
 }
 
+/* Header styles */
+
 .desktop_header_feature {
     display: none;
+}
+
+/* Home page styles */
+
+.homepage_main_div {
+    flex-flow: column;
+}
+
+.greeting_div {
+    margin: 10px 15px;
+    padding: 10px 15px;
+}
+
+.greeting_element {
+    font-size: 1rem;
 }
 
 @media (min-width: 701px) {
@@ -77,5 +94,9 @@ html, body {
 
     .desktop_header_feature {
         display: flex;
+    }
+
+    .homepage_main_div {
+        flex-flow: row;
     }
 }

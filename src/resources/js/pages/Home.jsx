@@ -1,5 +1,6 @@
 import Headers from "../components/Header";
 import { useAuth } from "../context/AuthContext";
+import GreetingsDiv from "../components/Greetings";
 
 function Home() {
     const { user, loading } = useAuth();
@@ -11,7 +12,7 @@ function Home() {
     if (!user) {
         return (
             <>
-                <Headers rightFeature={true}/>
+                <Headers rightFeature={true} />
                 <p className="text-white">Please Log in</p>
             </>
         );
@@ -19,14 +20,17 @@ function Home() {
 
     return (
         <div className="d-flex flex-column text-white vh-100">
-            <Headers 
+            <Headers
                 rightFeature={true}
             />
-            <h2 className="text-success bg-white rounded">
-                {user ? `Welcome back, ${user.name}!` : "Welcome!"}
-            </h2>
-            <p className="lead bg-white">React Router is navigating client-side.</p>
-            <button className="btn btn-success">Bootstrap still works here</button>
+            <div className="d-flex homepage_main_div">
+                <GreetingsDiv
+                    username={user.name}
+                />
+                <div>
+                    2nd main
+                </div>
+            </div>
         </div>
     );
 }
