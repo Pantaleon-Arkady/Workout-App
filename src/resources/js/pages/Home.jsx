@@ -24,11 +24,16 @@ function Home() {
                 rightFeature={true}
             />
             <div className="d-flex homepage_main_div">
-                <GreetingsDiv
-                    username={user.name}
-                />
-                <div>
-                    2nd main
+                <div className="desktop_side_tab border w-25">
+                    Desktop side tab
+                </div>
+                <div className="border p-1 home_content">
+                    <GreetingsDiv
+                        username={user.name}
+                    />
+                    <div className="border">
+                        2nd main
+                    </div>
                 </div>
             </div>
         </div>
