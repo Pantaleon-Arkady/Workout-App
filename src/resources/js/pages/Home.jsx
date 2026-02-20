@@ -1,6 +1,7 @@
 import Headers from "../components/Header";
 import { useAuth } from "../context/AuthContext";
 import GreetingsDiv from "../components/Greetings";
+import Tracker from "../components/Tracker";
 
 function Home() {
     const { user, loading } = useAuth();
@@ -31,9 +32,7 @@ function Home() {
                     <GreetingsDiv
                         username={user.name}
                     />
-                    <div className="border">
-                        2nd main
-                    </div>
+                    <Tracker />
                 </div>
             </div>
         </div>

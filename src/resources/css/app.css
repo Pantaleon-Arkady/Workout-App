@@ -64,6 +64,18 @@ html, body {
     display: none;
 }
 
+/* Tracker */
+
+.progress_visual_div {
+    justify-content: center;
+}
+
+.each_day_week {
+    width: 25%;
+    font-size: 0.6rem;
+    margin-bottom: 10px;
+}
+
 @media (min-width: 701px) {
 
     h4 {
@@ -116,5 +128,12 @@ html, body {
 
     .home_content {
         width: 75%;
+    }
+
+    /* Tracker */
+
+    .each_day_week {
+        width: 12%;
+        font-size: 1rem;
     }
 }
