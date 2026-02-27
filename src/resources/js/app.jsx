@@ -4,6 +4,7 @@ import "./bootstrap";
 import LandingPage from "./pages/Landing";
 import Home from "./pages/Home";
 import { AuthProvider } from "./context/AuthContext";
+import Posts from "./pages/Posts";
 
 const el = document.getElementById("app");
 
@@ -14,6 +15,7 @@ if (el) {
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
                     <Route path="/home" element={<Home />} />
+                    <Route path="/posts" element={<Posts />} />
                     <Route path="*" element={<h1>404 - Not Found</h1>} />
                 </Routes>
             </BrowserRouter>
