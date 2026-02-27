@@ -20,7 +20,7 @@ function LandingPage() {
         <div className="d-flex flex-column text-white vh-100">
             <Headers 
                 rightFeature={false}
-                postPage={false}
+                page=""
             />
             <div className="d-flex flex-column flex-md-row flex-grow-1 justify-content-center align-items-center px-4">
                 <div className="landing_greetings_wrapper px-3 px-md-0 w-100 w-md-50 d-flex flex-column">
