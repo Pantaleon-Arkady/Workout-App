@@ -2,7 +2,7 @@ import NavTab from "./NavTab";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-function Headers({ rightFeature }) {
+function Headers({ rightFeature, postPage }) {
     const { user, logout } = useAuth();
 
     const navigate = useNavigate();
@@ -43,9 +43,16 @@ function Headers({ rightFeature }) {
                 }
             </div>
 
-            <div className="text-center text-md-start fs-2 fw-bold">
+            <div className="header-app-name text-center text-md-start fs-2 fw-bold">
                 Workout Tracker
             </div>
+
+            {postPage ?
+                <>Post Feature</>
+                :
+                <></>
+            }
+
             <div className="desktop_header_feature w-25 flex-row justify-content-around">
                 <button
                     onClick={handleHome}

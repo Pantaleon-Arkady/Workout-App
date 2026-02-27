@@ -6,6 +6,7 @@ function Posts() {
         <div className="d-flex flex-column text-white vh-100">
             <Headers
                 rightFeature={true}
+                postPage={true}
             />
             Posts page
         </div>

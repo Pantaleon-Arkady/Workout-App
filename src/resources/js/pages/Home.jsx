@@ -23,6 +23,7 @@ function Home() {
         <div className="d-flex flex-column text-white vh-100">
             <Headers
                 rightFeature={true}
+                postPage={false}
             />
             <div className="d-flex homepage_main_div">
                 <div className="desktop_side_tab border w-25">
