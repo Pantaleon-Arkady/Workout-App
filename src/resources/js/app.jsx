@@ -15,7 +15,7 @@ if (el) {
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
                     <Route path="/home" element={<Home />} />
-                    <Route path="/posts" element={<Posts />} />
+                    <Route path="/post" element={<Posts />} />
                     <Route path="*" element={<h1>404 - Not Found</h1>} />
                 </Routes>
             </BrowserRouter>

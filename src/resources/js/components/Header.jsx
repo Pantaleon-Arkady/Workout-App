@@ -12,6 +12,14 @@ function Headers({ rightFeature }) {
         navigate("/");
     }
 
+    const handleHome = () => {
+        navigate("/home");
+    }
+
+    const handlePosts = () => {
+        navigate("/post");
+    }
+
     if (!user) {
         return (
             <div className="bg-black px-3 py-4 text-center d-flex flex-row justify-content-between">
@@ -24,6 +32,7 @@ function Headers({ rightFeature }) {
 
     return (
         <div className="bg-black px-3 py-4 text-center d-flex flex-row justify-content-between">
+
             <div className="mobile_header_feature">
                 {rightFeature ?
                     (
@@ -33,10 +42,23 @@ function Headers({ rightFeature }) {
                     (<></>)
                 }
             </div>
+
             <div className="text-center text-md-start fs-2 fw-bold">
                 Workout Tracker
             </div>
-            <div className="desktop_header_feature">
+            <div className="desktop_header_feature w-25 flex-row justify-content-around">
+                <button
+                    onClick={handleHome}
+                    className="btn btn-outline-primary"
+                >
+                    Home
+                </button>
+                <button
+                    onClick={handlePosts}
+                    className="btn btn-outline-primary"
+                >
+                    Post
+                </button>
                 <button
                     className="btn btn-outline-danger"
                     onClick={handleLogout}
@@ -44,6 +66,7 @@ function Headers({ rightFeature }) {
                     Logout
                 </button>
             </div>
+
         </div>
     )
 }

@@ -76,7 +76,7 @@ html, body {
     margin-bottom: 10px;
 }
 
-@media (min-width: 701px) {
+@media (min-width: 801px) {
 
     h4 {
         font-size: 2rem;

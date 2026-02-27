@@ -16,6 +16,14 @@ function NavTab() {
         navigate("/");
     }
 
+    const handleHome = () => {
+        navigate("/home");
+    }
+
+    const handlePosts = () => {
+        navigate("/post");
+    }
+
     return (
         user ?
             <>
@@ -47,8 +55,20 @@ function NavTab() {
                                 </button>
                             </div>
                             <button
+                                onClick={handleHome}
+                                className="btn btn-outline-primary mb-3"
+                            >
+                                Home
+                            </button>
+                            <button
+                                onClick={handlePosts}
+                                className="btn btn-outline-primary mb-3"
+                            >
+                                Post
+                            </button>
+                            <button
                                 onClick={handleLogout}
-                                className="btn btn-outline-danger"
+                                className="btn btn-outline-danger mb-3"
                             >
                                 Logout
                             </button>
