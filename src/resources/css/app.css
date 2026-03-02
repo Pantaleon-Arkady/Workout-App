@@ -39,6 +39,10 @@ html, body {
     width: 80%;
 }
 
+.text_area {
+    font-size: 0.75rem;
+}
+
 /* Header styles */
 
 .desktop_header_feature {
