@@ -1,4 +1,5 @@
 import NavTab from "./NavTab";
+import Post from "../forms/post";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -54,9 +55,7 @@ function Headers({ rightFeature, page }) {
             </div>
 
             {page === "post" && (
-                <button className="btn btn-primary">
-                Create Post
-                </button>
+                <Post />
             )}
 
             <div className="desktop_header_feature w-25 flex-row justify-content-around">
