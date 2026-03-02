@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Post() {
     const [postForm, setPostForm] = useState(false);
@@ -6,6 +7,7 @@ function Post() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
     function validateForm() {
         const newErrors = {};
@@ -28,6 +30,21 @@ function Post() {
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length > 0) return;
+
+        const res = await fetch("/api/create-post", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ title, content })
+        });
+
+        if (res.ok) {
+            navigate("/post");
+        } else {
+            const data = await res.json();
+            console.error(data);
+            alert("Failed to post");
+        }
     }
 
     return (

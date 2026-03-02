@@ -25,6 +25,8 @@ class PostController extends Controller
             'user_id' => $userId
         ]);
 
-        return redirect('/post');
+        return response()->json([
+            'message' => 'Post created successfully'
+        ], 201);
     }
 }
