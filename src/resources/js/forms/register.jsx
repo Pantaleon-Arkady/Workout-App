@@ -38,7 +38,11 @@ function RegisterForm() {
 
         if (Object.keys(validationErrors).length > 0) return;
 
-        const res = await fetch("/api/register", {
+        await fetch("http://localhost:8000/sanctum/csrf-cookie", {
+            credentials: "include"
+        });
+
+        const res = await fetch("http://localhost:8000/api/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, email, password })
