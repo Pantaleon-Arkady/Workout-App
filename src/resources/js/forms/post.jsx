@@ -31,9 +31,12 @@ function Post() {
 
         if (Object.keys(validationErrors).length > 0) return;
 
-        const res = await fetch("/api/create-post", {
+        const res = await fetch("/create-post", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
             credentials: "include",
             body: JSON.stringify({ title, content })
         });

@@ -1,14 +1,8 @@
 <?php
-
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 
-Route::get('/users', [UserController::class, 'index']);
-
-Route::post('/register', [UserController::class, 'register']);
-
-Route::post('/login', [UserController::class, 'login']);
-
-Route::post('/create-post', [PostController::class, 'createPost']);
+Route::middleware('auth:sanctum')->get('/users', [UserController::class, 'index']);
+Route::middleware('auth:sanctum')->post('/create-post', [PostController::class, 'createPost']);
 

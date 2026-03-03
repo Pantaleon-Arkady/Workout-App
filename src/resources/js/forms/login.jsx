@@ -36,10 +36,18 @@ function LoginForm() {
 
         if (Object.keys(validationErrors).length > 0) return;
 
-        const res = await fetch("/api/login", {
+        await fetch("http://localhost:8000/sanctum/csrf-cookie", {
+            credentials: "include"
+        });
+
+        const res = await fetch("http://localhost:8000/login", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ namemail, password })
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({ namemail, password }),
         });
 
         const data = await res.json();
