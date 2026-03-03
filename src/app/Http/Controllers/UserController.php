@@ -20,19 +20,12 @@ class UserController extends Controller
             ->orWhere('name', $validated['namemail'])
             ->first();
 
-        if (! $user) {
-            return response()->json([
-                'field' => 'namemail',
-                'message' => 'User not found.',
-            ], 401);
+        if (!$user || !Hash::check($validated['password'], $user->password)) {
+            return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        if (! Hash::check($validated['password'], $user->password)) {
-            return response()->json([
-                'field' => 'password',
-                'message' => 'Incorrect password.',
-            ], 401);
-        }
+        // Log in the user so the session cookie works
+        Auth::login($user);
 
         return response()->json([
             'message' => 'Login successful',
