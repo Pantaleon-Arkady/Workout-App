@@ -12,17 +12,15 @@ function NavTab() {
     const [nav, setNav] = useState(false);
 
     const handleLogout = async () => {
-        await fetch("http://localhost:8000/sanctum/csrf-cookie", {
-            credentials: "include"
-        });
-    
-        await fetch("http://localhost:8000/logout", {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Accept": "application/json"
-            }
-        });
+        try {
+            await axios.post("/logout", {}, { withCredentials: true });
+            logout();
+            navigate("/");
+        } catch (error) {
+            const data = error.response?.data;
+            console.error(data?.message || "Logout failed");
+            alert(data?.message || "Logout failed");
+        }
     };
 
     const handleHome = () => {

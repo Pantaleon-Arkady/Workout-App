@@ -2,6 +2,7 @@ import NavTab from "./NavTab";
 import Post from "../forms/post";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import axios from "../../../axios";
 
 function Headers({ rightFeature, page }) {
     const { user, logout } = useAuth();
@@ -9,17 +10,15 @@ function Headers({ rightFeature, page }) {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
-        await fetch("http://localhost:8000/sanctum/csrf-cookie", {
-            credentials: "include"
-        });
-    
-        await fetch("http://localhost:8000/logout", {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Accept": "application/json"
-            }
-        });
+        try {
+            await axios.post("/logout", {}, { withCredentials: true });
+            logout();
+            navigate("/");
+        } catch (error) {
+            const data = error.response?.data;
+            console.error(data?.message || "Logout failed");
+            alert(data?.message || "Logout failed");
+        }
     };
 
     const handleHome = () => {
