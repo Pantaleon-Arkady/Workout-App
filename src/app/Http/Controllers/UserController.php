@@ -24,16 +24,12 @@ class UserController extends Controller
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        // Log in the user so the session cookie works
         Auth::login($user);
+        $request->session()->regenerate(); // ADD THIS
 
         return response()->json([
             'message' => 'Login successful',
-            'user' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-            ],
+            'user' => $user->only('id','name','email')
         ]);
     }
 
@@ -51,9 +47,12 @@ class UserController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
+        Auth::login($user);
+        $request->session()->regenerate();
+
         return response()->json([
             'message' => 'User registered successfully',
-            'user' => $user,
+            'user' => $user->only('id','name','email'),
         ], 201);
     }
 
