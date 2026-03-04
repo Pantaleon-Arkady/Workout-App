@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import axios from "../../../axios";
 
 function LoginForm() {
     const [namemail, setNameMail] = useState("");
@@ -36,21 +37,26 @@ function LoginForm() {
 
         if (Object.keys(validationErrors).length > 0) return;
 
-        await fetch("http://localhost:8000/sanctum/csrf-cookie", {
-            credentials: "include"
-        });
-
-        const res = await fetch("http://localhost:8000/api/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify({ namemail, password }),
-        });
-
-        const data = await res.json();
+        try {
+            await axios.get("/sanctum/csrf-cookie");
+        
+            const { data } = await axios.post("/login", {
+                namemail,
+                password
+            });
+        
+            login(data.user);
+            navigate("/home");
+        
+        } catch (error) {
+            const data = error.response?.data;
+        
+            if (data?.field) {
+                setErrors({ [data.field]: data.message });
+            } else {
+                setServerError(data?.message || "Login failed");
+            }
+        }
 
         if (!res.ok) {
             if (data.field) {

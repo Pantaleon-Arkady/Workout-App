@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "../../../axios";
+import { useAuth } from "../context/AuthContext";
 
 function RegisterForm() {
     const [name, setName] = useState("");
@@ -7,6 +9,8 @@ function RegisterForm() {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
+
+    const { login } = useAuth();
 
     function validateForm() {
         const newErrors = {};
@@ -38,15 +42,22 @@ function RegisterForm() {
 
         if (Object.keys(validationErrors).length > 0) return;
 
-        await fetch("http://localhost:8000/sanctum/csrf-cookie", {
-            credentials: "include"
-        });
-
-        const res = await fetch("http://localhost:8000/api/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email, password })
-        });
+        try {
+            await axios.get("/sanctum/csrf-cookie");
+        
+            const { data } = await axios.post("/register", {
+                name,
+                email,
+                password
+            });
+        
+            login(data.user); // 👈 THIS WAS MISSING
+            navigate("/home");
+        
+        } catch (error) {
+            console.error(error.response?.data);
+            alert("Failed to register");
+        }
 
         if (res.ok) {
             navigate("/", { state: { registered: true } });
