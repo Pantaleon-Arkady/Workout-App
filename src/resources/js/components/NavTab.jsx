@@ -11,10 +11,19 @@ function NavTab() {
     const closeNav = useRef(null);
     const [nav, setNav] = useState(false);
 
-    const handleLogout = () => {
-        logout();
-        navigate("/");
-    }
+    const handleLogout = async () => {
+        await fetch("http://localhost:8000/sanctum/csrf-cookie", {
+            credentials: "include"
+        });
+    
+        await fetch("http://localhost:8000/logout", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+    };
 
     const handleHome = () => {
         navigate("/home");

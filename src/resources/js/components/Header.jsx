@@ -8,10 +8,19 @@ function Headers({ rightFeature, page }) {
 
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        logout();
-        navigate("/");
-    }
+    const handleLogout = async () => {
+        await fetch("http://localhost:8000/sanctum/csrf-cookie", {
+            credentials: "include"
+        });
+    
+        await fetch("http://localhost:8000/logout", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+    };
 
     const handleHome = () => {
         navigate("/home");
