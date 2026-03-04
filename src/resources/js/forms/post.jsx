@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "../../../axios";
 
 function Post() {
     const [postForm, setPostForm] = useState(false);
@@ -31,15 +32,20 @@ function Post() {
 
         if (Object.keys(validationErrors).length > 0) return;
 
-        const res = await fetch("/create-post", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({ title, content })
-        });
+        try {
+            await axios.get("/sanctum/csrf-cookie");
+        
+            await axios.post("/create-post", {
+                title,
+                content
+            });
+        
+            navigate("/post");
+        
+        } catch (error) {
+            console.error(error.response?.data);
+            alert("Failed to post");
+        }
 
         if (res.ok) {
             navigate("/post");
