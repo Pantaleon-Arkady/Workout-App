@@ -36,7 +36,11 @@ html, body {
 }
 
 .reg_fs {
-    font-size: 0.85rem;
+    font-size: 0.7rem;
+}
+
+.content_fs {
+    font-size: 0.8rem;
 }
 
 .w-80 {
@@ -88,14 +92,24 @@ html, body {
     margin-bottom: 10px;
 }
 
+/* Posts */
+
+.each_post_div {
+    width: 98%;
+}
+
 @media (min-width: 801px) {
 
     h4 {
         font-size: 2rem;
     }
 
-    p, label, input, button, .text_sz {
+    p, label, input, button, .text_sz, .content_fs {
         font-size: 0.9rem !important;
+    }
+
+    .reg_fs {
+        font-size: 0.8rem;
     }
 
     /* Landingpage Styles */
@@ -147,5 +161,12 @@ html, body {
     .each_day_week {
         width: 12%;
         font-size: 1rem;
+    }
+
+    /* each_post_div */
+
+    .each_post_div {
+        width: 60%;
+        min-height: 20vh;
     }
 }

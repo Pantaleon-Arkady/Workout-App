@@ -53,12 +53,12 @@ function Posts() {
                             username={user.name}
                         />
                     </div>
-                    <div className="border p-1 home_content" >
+                    <div className="border pt-1 pt-md-4 home_content d-flex flex-column align-items-center" >
                         {/* <div className="text-white">
                             Posts retrieved: {posts.length}
                         </div> */}
                         {posts.map((post) => (
-                                <div key={post.id} className="border pt-2 rounded p-1 mb-3">
+                                <div key={post.id} className="each_post_div border pt-2 rounded p-1 mb-3">
                                     <div className="d-flex flex-row justify-content-between reg_fs bor">
                                         <span>{post.user.name}</span>
                                         <span>
@@ -66,7 +66,7 @@ function Posts() {
                                         </span>
                                     </div>
                                     <hr></hr>
-                                    <div className="">
+                                    <div className="content_fs">
                                         {post.content}
                                     </div>
                                 </div>
