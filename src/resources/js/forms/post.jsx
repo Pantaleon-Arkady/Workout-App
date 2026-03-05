@@ -10,6 +10,8 @@ function Post() {
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 
+    const closeForm = () => setPostForm(false);
+
     function validateForm() {
         const newErrors = {};
 
@@ -39,19 +41,15 @@ function Post() {
                 title,
                 content
             });
-        
-            navigate("/post");
+
+            setTitle("");
+            setContent("");
+            closeForm();
+
+            window.location.reload();
         
         } catch (error) {
             console.error(error.response?.data);
-            alert("Failed to post");
-        }
-
-        if (res.ok) {
-            navigate("/post");
-        } else {
-            const data = await res.json();
-            console.error(data);
             alert("Failed to post");
         }
     }
