@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../axios";
+import { Dropdown } from 'react-bootstrap';
 
 function Post() {
     const [postForm, setPostForm] = useState(false);
@@ -36,7 +37,7 @@ function Post() {
 
         try {
             await axios.get("/sanctum/csrf-cookie");
-        
+
             await axios.post("/create-post", {
                 title,
                 content
@@ -47,7 +48,7 @@ function Post() {
             closeForm();
 
             window.location.reload();
-        
+
         } catch (error) {
             console.error(error.response?.data);
             alert("Failed to post");
@@ -56,7 +57,20 @@ function Post() {
 
     return (
         <>
-            <button 
+
+            <Dropdown className="d-block d-md-none">
+                <Dropdown.Toggle variant="primary">
+                    Posts Filter
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                    <Dropdown.Item href="#">Personal Posts</Dropdown.Item>
+                    <Dropdown.Item href="#">All Posts</Dropdown.Item>
+                    <Dropdown.Item href="#">by Date ASC</Dropdown.Item>
+                    <Dropdown.Item href="#">by Date DESC</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+            <button
                 className="btn btn-primary"
                 onClick={() => setPostForm(!postForm)}
             >
@@ -68,7 +82,7 @@ function Post() {
                     className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75"
                 >
                     <div
-                        className="w-100 d-flex flex-column align-items-center"    
+                        className="w-100 d-flex flex-column align-items-center"
                     >
                         <div className="w-100 d-flex justify-content-end pb-3">
                             <button
@@ -78,7 +92,7 @@ function Post() {
                                 x
                             </button>
                         </div>
-                        <form 
+                        <form
                             onSubmit={handleSubmit}
                             className="w-75 bg-white rounded text-black d-flex flex-column align-items-center p-3"
                         >

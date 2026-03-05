@@ -52,11 +52,11 @@ function Posts() {
                         <GreetingsDiv
                             username={user.name}
                         />
+                        <div className="text-white d-none d-md-block">
+                            Filter
+                        </div>
                     </div>
                     <div className="border pt-1 pt-md-4 home_content d-flex flex-column align-items-center" >
-                        {/* <div className="text-white">
-                            Posts retrieved: {posts.length}
-                        </div> */}
                         {posts.map((post) => (
                                 <div key={post.id} className="each_post_div border pt-2 rounded p-1 mb-3">
                                     <div className="d-flex flex-row justify-content-between reg_fs bor">

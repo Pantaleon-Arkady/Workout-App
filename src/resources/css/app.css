@@ -150,6 +150,7 @@ html, body {
 
     .desktop_side_tab {
         display: flex;
+        flex-flow: column;
     }
 
     .home_content {
