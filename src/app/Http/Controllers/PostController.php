@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
+    public function retrievePost()
+    {
+        $posts = Post::latest()->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $posts
+        ]);
+    }
+
     public function createPost(Request $request)
     {
         Log::info('Auth user', ['user' => Auth::user(), 'id' => Auth::id()]);
