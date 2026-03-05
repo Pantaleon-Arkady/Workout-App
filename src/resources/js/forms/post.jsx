@@ -35,7 +35,7 @@ function Post() {
         try {
             await axios.get("/sanctum/csrf-cookie");
         
-            await axios.post("/api/create-post", {
+            await axios.post("/create-post", {
                 title,
                 content
             });
