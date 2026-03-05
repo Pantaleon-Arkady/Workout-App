@@ -47,7 +47,7 @@ function NavTab() {
                 {nav && (
                     <div
                         ref={navTab}
-                        className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75"
+                        className="nav_tab position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75"
                     >
                         <div
                             className="w-75 d-flex flex-column p-2 bg-black h-100"

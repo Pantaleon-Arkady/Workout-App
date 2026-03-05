@@ -35,6 +35,10 @@ html, body {
     font-size: 0.7rem;
 }
 
+.reg_fs {
+    font-size: 0.85rem;
+}
+
 .w-80 {
     width: 80%;
 }
@@ -47,6 +51,10 @@ html, body {
 
 .desktop_header_feature {
     display: none;
+}
+
+.nav_tab {
+    z-index: 10;
 }
 
 /* Homepage styles */
