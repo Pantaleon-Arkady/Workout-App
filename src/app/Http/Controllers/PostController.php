@@ -11,7 +11,7 @@ class PostController extends Controller
 {
     public function retrievePost()
     {
-        $posts = Post::latest()->get();
+        $posts = Post::with('user')->latest()->get();
 
         return response()->json([
             'success' => true,
