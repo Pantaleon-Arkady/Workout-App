@@ -57,15 +57,6 @@ function LoginForm() {
                 setServerError(data?.message || "Login failed");
             }
         }
-
-        if (!res.ok) {
-            if (data.field) {
-                setErrors({ [data.field]: data.message });
-            } else {
-                setServerError(data.message || "Login failed");
-            }
-            return;
-        }
         
 
         login(data.user);

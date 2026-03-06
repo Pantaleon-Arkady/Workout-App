@@ -3,6 +3,7 @@ import Headers from "../components/Header";
 import axios from "../../../axios";
 import GreetingsDiv from "../components/Greetings";
 import { useAuth } from "../context/AuthContext";
+import { Dropdown } from "react-bootstrap";
 
 function Posts() {
     const [posts, setPosts] = useState([]);
@@ -48,28 +49,37 @@ function Posts() {
 
             {!loading && posts.length > 0 && (
                 <div className="d-flex homepage_main_div">
-                    <div className="desktop_side_tab border w-25">
+                    <div className="desktop_side_tab border w-25 flex-column align-items-center">
                         <GreetingsDiv
                             username={user.name}
                         />
-                        <div className="text-white d-none d-md-block">
-                            Filter
-                        </div>
+                        <Dropdown className="">
+                            <Dropdown.Toggle variant="primary">
+                                Posts Filter
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="#">Personal Posts</Dropdown.Item>
+                                <Dropdown.Item href="#">All Posts</Dropdown.Item>
+                                <Dropdown.Item href="#">by Date ASC</Dropdown.Item>
+                                <Dropdown.Item href="#">by Date DESC</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
                     </div>
                     <div className="border pt-1 pt-md-4 home_content d-flex flex-column align-items-center" >
                         {posts.map((post) => (
-                                <div key={post.id} className="each_post_div border pt-2 rounded p-1 mb-3">
-                                    <div className="d-flex flex-row justify-content-between reg_fs bor">
-                                        <span>{post.user.name}</span>
-                                        <span>
-                                            {new Date(post.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} ~ {new Date(post.created_at).toLocaleDateString()} {" "}
-                                        </span>
-                                    </div>
-                                    <hr></hr>
-                                    <div className="content_fs">
-                                        {post.content}
-                                    </div>
+                            <div key={post.id} className="each_post_div border pt-2 rounded p-1 mb-3">
+                                <div className="d-flex flex-row justify-content-between reg_fs bor">
+                                    <span>{post.user.name}</span>
+                                    <span>
+                                        {new Date(post.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} ~ {new Date(post.created_at).toLocaleDateString()} {" "}
+                                    </span>
                                 </div>
+                                <hr></hr>
+                                <div className="content_fs">
+                                    {post.content}
+                                </div>
+                            </div>
                         ))}
                     </div>
                 </div>
