@@ -60,7 +60,7 @@ function Post() {
 
             <Dropdown className="d-block d-md-none">
                 <Dropdown.Toggle variant="primary">
-                    Posts Filter
+                    Sort Posts
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>

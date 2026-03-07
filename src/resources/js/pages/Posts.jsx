@@ -8,6 +8,7 @@ import { Dropdown } from "react-bootstrap";
 function Posts() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [sortedPosts, setSortedPosts] = useState([]);
 
     const { user } = useAuth();
 
@@ -23,7 +24,7 @@ function Posts() {
 
             console.log("JSON:", json);
 
-            setPosts(Array.isArray(json.data) ? json.data : [])
+            setPosts(Array.isArray(json.data) ? json.data : []);
         } catch (err) {
             console.error("Fetch failed:", err)
         } finally {
@@ -34,6 +35,32 @@ function Posts() {
     useEffect(() => {
         fetchPost();
     }, []);
+
+    const sortPosts = (type) => {
+        let sorted = [...posts];
+
+        if (type === 'all') {
+            sorted = [...posts];
+        }
+
+        if (type === 'date_asc') {
+            sorted.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+        }
+
+        if (type === 'date_desc') {
+            sorted.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        }
+
+        if (type === 'personal') {
+            sorted = sorted.filter(post => post.user_id === user.id);
+        }
+
+        setSortedPosts(sorted);
+    }
+
+    useEffect(() => {
+        setSortedPosts(posts);
+    }, [posts]);
 
     return (
         <div className="d-flex flex-column text-white vh-100">
@@ -59,15 +86,15 @@ function Posts() {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item href="#">Personal Posts</Dropdown.Item>
-                                <Dropdown.Item href="#">All Posts</Dropdown.Item>
-                                <Dropdown.Item href="#">by Date ASC</Dropdown.Item>
-                                <Dropdown.Item href="#">by Date DESC</Dropdown.Item>
+                                <Dropdown.Item onClick={() => sortPosts('personal')}>Personal Posts</Dropdown.Item>
+                                <Dropdown.Item onClick={() => sortPosts('all')}>All Posts</Dropdown.Item>
+                                <Dropdown.Item onClick={() => sortPosts('date_asc')}>by Date ASC</Dropdown.Item>
+                                <Dropdown.Item onClick={() => sortPosts('date_desc')}>by Date DESC</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>
                     <div className="border pt-1 pt-md-4 home_content d-flex flex-column align-items-center" >
-                        {posts.map((post) => (
+                        {sortedPosts.map((post) => (
                             <div key={post.id} className="each_post_div border pt-2 rounded p-1 mb-3">
                                 <div className="d-flex flex-row justify-content-between reg_fs bor">
                                     <span>{post.user.name}</span>
