@@ -42,16 +42,26 @@ function Posts() {
         fetchPost();
     }, []);
 
-    const sortPosts = (type) => {
+    const sortPosts = async (type) => {
 
-        if (type === "all") {
-            fetchPost();
-        }
+        let params = {};
     
         if (type === "user") {
-            fetchPost(user.id);
+            params.user_id = user.id;
         }
-    }
+    
+        if (type === "latest") {
+            params.sort = "latest";
+        }
+    
+        if (type === "oldest") {
+            params.sort = "oldest";
+        }
+    
+        const res = await axios.get("/api/posts", { params });
+    
+        setPosts(res.data.data);
+    };
 
     return (
         <div className="d-flex flex-column text-white vh-100">

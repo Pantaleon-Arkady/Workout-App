@@ -20,8 +20,13 @@ function SortPosts({ onSort, screen }) {
                     Personal Posts
                 </Dropdown.Item>
 
-                <Dropdown.Item>Latest Posts</Dropdown.Item>
-                <Dropdown.Item>Old Posts</Dropdown.Item>
+                <Dropdown.Item onClick={() => onSort('latest')}>
+                    Latest Posts
+                </Dropdown.Item>
+
+                <Dropdown.Item onClick={() => onSort('oldest')}>
+                    Old Posts
+                </Dropdown.Item>
             </Dropdown.Menu>
 
         </Dropdown>
