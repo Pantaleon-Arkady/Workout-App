@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../axios";
 
-function Headers({ rightFeature, page }) {
+function Headers({ rightFeature, page, onSort }) {
     const { user, logout } = useAuth();
 
     const navigate = useNavigate();
@@ -63,7 +63,9 @@ function Headers({ rightFeature, page }) {
             </div>
 
             {page === "post" && (
-                <Post />
+                <Post
+                    onSort={onSort}
+                />
             )}
 
             <div className="desktop_header_feature w-25 flex-row justify-content-around">

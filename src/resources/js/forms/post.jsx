@@ -2,8 +2,9 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../axios";
 import { Dropdown } from 'react-bootstrap';
+import SortPosts from "../components/SortPosts";
 
-function Post() {
+function Post({ onSort }) {
     const [postForm, setPostForm] = useState(false);
     const postFormDiv = useRef(null);
     const [title, setTitle] = useState("");
@@ -57,19 +58,10 @@ function Post() {
 
     return (
         <>
-
-            <Dropdown className="d-block d-md-none">
-                <Dropdown.Toggle variant="primary">
-                    Sort Posts
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                    <Dropdown.Item href="#">Personal Posts</Dropdown.Item>
-                    <Dropdown.Item href="#">All Posts</Dropdown.Item>
-                    <Dropdown.Item href="#">by Date ASC</Dropdown.Item>
-                    <Dropdown.Item href="#">by Date DESC</Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
+            <SortPosts
+                screen={'desktop'}
+                onSort={onSort}
+            />
             <button
                 className="btn btn-primary"
                 onClick={() => setPostForm(!postForm)}
