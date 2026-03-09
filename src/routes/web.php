@@ -26,6 +26,6 @@ Route::get('/check-auth', function () {
 Route::post('/create-post', [PostController::class, 'createPost']);
 
 Route::prefix('api')->middleware(['auth:sanctum'])->group(function () {
-    Route::get('/retrieve-posts', [PostController::class, 'retrievePost']);
+    Route::get('/posts', [PostController::class, 'retrievePost']);
     Route::get('/users', [UserController::class, 'index']);
 });

@@ -4,29 +4,26 @@ function SortPosts({ onSort, screen }) {
 
     return (
         <Dropdown className={`
-            ${screen === "desktop" ? "d-md-none d-block" : ""}
-        `}>
+              ${screen === "desktop" ? "d-md-none d-block" : ""}
+            `}>
+
             <Dropdown.Toggle variant="primary">
                 Sort Posts
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-                <Dropdown.Item onClick={() => onSort('personal')}>
-                    Personal Posts
-                </Dropdown.Item>
-
                 <Dropdown.Item onClick={() => onSort('all')}>
                     All Posts
                 </Dropdown.Item>
 
-                <Dropdown.Item onClick={() => onSort('date_asc')}>
-                    by Date ASC
+                <Dropdown.Item onClick={() => onSort('user')}>
+                    Personal Posts
                 </Dropdown.Item>
 
-                <Dropdown.Item onClick={() => onSort('date_desc')}>
-                    by Date DESC
-                </Dropdown.Item>
+                <Dropdown.Item>Latest Posts</Dropdown.Item>
+                <Dropdown.Item>Old Posts</Dropdown.Item>
             </Dropdown.Menu>
+
         </Dropdown>
     )
 }
