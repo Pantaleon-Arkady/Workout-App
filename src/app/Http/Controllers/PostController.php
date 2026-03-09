@@ -11,10 +11,16 @@ class PostController extends Controller
 {
     public function retrievePost(Request $request)
     {
-        $query = Post::with('user')->latest();
+        $query = Post::with('user');
 
         if ($request->has('user_id')) {
             $query->where('user_id', $request->user_id);
+        }
+
+        if ($request->sort === 'oldest') {
+            $query->oldest();
+        } else {
+            $query->latest();
         }
 
         $posts = $query->get();
