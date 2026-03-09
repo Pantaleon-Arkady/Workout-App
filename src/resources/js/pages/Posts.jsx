@@ -9,15 +9,20 @@ import SortPosts from "../components/SortPosts";
 function Posts() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [sortedPosts, setSortedPosts] = useState([]);
 
     const { user } = useAuth();
 
-    async function fetchPost() {
+    async function fetchPost(userId = null) {
         setLoading(true);
 
         try {
-            const res = await axios.get("/api/retrieve-posts");
+            let url = "/api/posts";
+
+            if (userId) {
+                url = `/api/posts?user_id=${userId}`;
+            }
+
+            const res = await axios.get(url);
 
             console.log("API reponse:", res);
 
@@ -38,30 +43,15 @@ function Posts() {
     }, []);
 
     const sortPosts = (type) => {
-        let sorted = [...posts];
 
-        if (type === 'all') {
-            sorted = [...posts];
+        if (type === "all") {
+            fetchPost();
         }
-
-        if (type === 'date_asc') {
-            sorted.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+    
+        if (type === "user") {
+            fetchPost(user.id);
         }
-
-        if (type === 'date_desc') {
-            sorted.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-        }
-
-        if (type === 'personal') {
-            sorted = sorted.filter(post => post.user_id === user.id);
-        }
-
-        setSortedPosts(sorted);
     }
-
-    useEffect(() => {
-        setSortedPosts(posts);
-    }, [posts]);
 
     return (
         <div className="d-flex flex-column text-white vh-100">
@@ -87,7 +77,7 @@ function Posts() {
                         />
                     </div>
                     <div className="border pt-1 pt-md-4 home_content d-flex flex-column align-items-center" >
-                        {sortedPosts.map((post) => (
+                        {posts.map((post) => (
                             <div key={post.id} className="each_post_div border pt-2 rounded p-1 mb-3">
                                 <div className="d-flex flex-row justify-content-between reg_fs bor">
                                     <span>{post.user.name}</span>
