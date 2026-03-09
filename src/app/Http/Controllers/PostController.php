@@ -9,9 +9,15 @@ use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
-    public function retrievePost()
+    public function retrievePost(Request $request)
     {
-        $posts = Post::with('user')->latest()->get();
+        $query = Post::with('user')->latest();
+
+        if ($request->has('user_id')) {
+            $query->where('user_id', $request->user_id);
+        }
+
+        $posts = $query->get();
 
         return response()->json([
             'success' => true,
@@ -23,7 +29,7 @@ class PostController extends Controller
     {
         Log::info('Auth user', ['user' => Auth::user(), 'id' => Auth::id()]);
         Log::info('Cookies', ['cookies' => $request->cookies->all()]);
-        
+
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthenticated'], 401);
         }
