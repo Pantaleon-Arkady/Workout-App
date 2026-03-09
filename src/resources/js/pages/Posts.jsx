@@ -4,6 +4,7 @@ import axios from "../../../axios";
 import GreetingsDiv from "../components/Greetings";
 import { useAuth } from "../context/AuthContext";
 import { Dropdown } from "react-bootstrap";
+import SortPosts from "../components/SortPosts";
 
 function Posts() {
     const [posts, setPosts] = useState([]);
@@ -67,6 +68,7 @@ function Posts() {
             <Headers
                 rightFeature={true}
                 page="post"
+                onSort={sortPosts}
             />
             {loading && <span>Loading Posts...</span>}
 
@@ -80,18 +82,9 @@ function Posts() {
                         <GreetingsDiv
                             username={user.name}
                         />
-                        <Dropdown className="">
-                            <Dropdown.Toggle variant="primary">
-                                Posts Filter
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                                <Dropdown.Item onClick={() => sortPosts('personal')}>Personal Posts</Dropdown.Item>
-                                <Dropdown.Item onClick={() => sortPosts('all')}>All Posts</Dropdown.Item>
-                                <Dropdown.Item onClick={() => sortPosts('date_asc')}>by Date ASC</Dropdown.Item>
-                                <Dropdown.Item onClick={() => sortPosts('date_desc')}>by Date DESC</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        <SortPosts 
+                            onSort={sortPosts}
+                        />
                     </div>
                     <div className="border pt-1 pt-md-4 home_content d-flex flex-column align-items-center" >
                         {sortedPosts.map((post) => (
