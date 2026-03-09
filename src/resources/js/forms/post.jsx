@@ -71,7 +71,7 @@ function Post({ onSort }) {
             {postForm && (
                 <div
                     ref={postFormDiv}
-                    className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75"
+                    className="post_form_div position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75"
                 >
                     <div
                         className="w-100 d-flex flex-column align-items-center"
@@ -86,7 +86,7 @@ function Post({ onSort }) {
                         </div>
                         <form
                             onSubmit={handleSubmit}
-                            className="w-75 bg-white rounded text-black d-flex flex-column align-items-center p-3"
+                            className="post_form w-75 bg-white rounded text-black d-flex flex-column align-items-center p-3"
                         >
                             Create a Post?
                             <div className="border mb-3 pt-1 pb-3 px-3 bg-secondary text-white rounded pt-3">

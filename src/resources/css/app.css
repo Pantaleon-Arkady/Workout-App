@@ -98,6 +98,16 @@ html, body {
     width: 98%;
 }
 
+/* Post Form */
+
+.post_form_div {
+    z-index: 10;
+}
+
+.post_form {
+    z-index: 20;
+}
+
 @media (min-width: 801px) {
 
     h4 {
