@@ -13,7 +13,7 @@ class PostController extends Controller
     {
         $query = Post::with('user');
 
-        if ($request->has('user_id')) {
+        if ($request->user_id) {
             $query->where('user_id', $request->user_id);
         }
 
@@ -23,12 +23,9 @@ class PostController extends Controller
             $query->latest();
         }
 
-        $posts = $query->get();
+        $posts = $query->paginate(10);
 
-        return response()->json([
-            'success' => true,
-            'data' => $posts
-        ]);
+        return response()->json($posts);
     }
 
     public function createPost(Request $request)

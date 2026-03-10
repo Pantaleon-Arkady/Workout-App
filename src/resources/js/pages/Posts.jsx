@@ -10,57 +10,67 @@ function Posts() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const [page, setPage] = useState(1);
+    const [lastPage, setLastPage] = useState(null);
+
+    const [filters, setFilters] = useState({
+        user_id: null,
+        sort: "latest"
+    });
+
     const { user } = useAuth();
 
-    async function fetchPost(userId = null) {
+    async function fetchPosts(pageNumber = page, newFilters = filters) {
         setLoading(true);
 
         try {
-            let url = "/api/posts";
 
-            if (userId) {
-                url = `/api/posts?user_id=${userId}`;
-            }
+            const res = await axios.get("/api/posts", {
+                params: {
+                    page: pageNumber,
+                    user_id: newFilters.user_id,
+                    sort: newFilters.sort
+                }
+            });
 
-            const res = await axios.get(url);
+            setPosts(res.data.data);
+            setPage(res.data.current_page);
+            setLastPage(res.data.last_page);
 
-            console.log("API reponse:", res);
-
-            const json = res.data;
-
-            console.log("JSON:", json);
-
-            setPosts(Array.isArray(json.data) ? json.data : []);
         } catch (err) {
-            console.error("Fetch failed:", err)
+            console.error("Fetch failed:", err);
         } finally {
             setLoading(false);
         }
     }
 
     useEffect(() => {
-        fetchPost();
+        fetchPosts();
     }, []);
 
-    const sortPosts = async (type) => {
+    const sortPosts = (type) => {
 
-        let params = {};
-    
+        let newFilters = { ...filters };
+
+        if (type === "all") {
+            newFilters.user_id = null;
+        }
+
         if (type === "user") {
-            params.user_id = user.id;
+            newFilters.user_id = user.id;
         }
-    
+
         if (type === "latest") {
-            params.sort = "latest";
+            newFilters.sort = "latest";
         }
-    
+
         if (type === "oldest") {
-            params.sort = "oldest";
+            newFilters.sort = "oldest";
         }
-    
-        const res = await axios.get("/api/posts", { params });
-    
-        setPosts(res.data.data);
+
+        setFilters(newFilters);
+
+        fetchPosts(1, newFilters);
     };
 
     return (
@@ -82,25 +92,49 @@ function Posts() {
                         <GreetingsDiv
                             username={user.name}
                         />
-                        <SortPosts 
+                        <SortPosts
                             onSort={sortPosts}
                         />
                     </div>
                     <div className="border pt-1 pt-md-4 home_content d-flex flex-column align-items-center" >
                         {posts.map((post) => (
-                            <div key={post.id} className="each_post_div border pt-2 rounded p-1 mb-3">
-                                <div className="d-flex flex-row justify-content-between reg_fs bor">
+                            <div key={post.id} className="each_post_div border pt-2 rounded p-1 mb-3 bg-black">
+                                <div className="d-flex flex-row justify-content-between reg_fs border-bottom">
                                     <span>{post.user.name}</span>
                                     <span>
                                         {new Date(post.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} ~ {new Date(post.created_at).toLocaleDateString()} {" "}
                                     </span>
                                 </div>
-                                <hr></hr>
+                                <div className="mt-1">
+                                    {post.title}
+                                </div>
+                                <hr />
                                 <div className="content_fs">
                                     {post.content}
                                 </div>
                             </div>
                         ))}
+                        <div className="d-flex gap-2 mt-3 p-2 m-2">
+
+                            <button
+                                className="btn btn-outline-primary"
+                                disabled={page === 1}
+                                onClick={() => fetchPosts(page - 1)}
+                            >
+                                Previous
+                            </button>
+
+                            <span className="mt-2">Page {page}</span>
+
+                            <button
+                                className="btn btn-outline-primary"
+                                disabled={page === lastPage}
+                                onClick={() => fetchPosts(page + 1)}
+                            >
+                                Next
+                            </button>
+
+                        </div>
                     </div>
                 </div>
             )}
