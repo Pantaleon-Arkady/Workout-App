@@ -17,6 +17,12 @@ class PostController extends Controller
             $query->where('user_id', $request->user_id);
         }
 
+        if ($request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('content', 'like', '%' . $request->search . '%');
+            });
+        }
+
         if ($request->sort === 'oldest') {
             $query->oldest();
         } else {
