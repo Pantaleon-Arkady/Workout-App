@@ -5,6 +5,7 @@ import GreetingsDiv from "../components/Greetings";
 import { useAuth } from "../context/AuthContext";
 import { Dropdown } from "react-bootstrap";
 import SortPosts from "../components/SortPosts";
+import SearchPost from "../components/SearchPost";
 
 function Posts() {
     const [posts, setPosts] = useState([]);
@@ -22,7 +23,7 @@ function Posts() {
 
     const { user } = useAuth();
 
-    async function fetchPosts(pageNumber = page, newFilters = filters) {
+    async function fetchPosts(pageNumber = page, newFilters = filters, searchValue = search) {
         setLoading(true);
 
         try {
@@ -32,7 +33,7 @@ function Posts() {
                     page: pageNumber,
                     user_id: newFilters.user_id,
                     sort: newFilters.sort,
-                    search: search
+                    search: searchValue
                 }
             });
 
@@ -76,6 +77,11 @@ function Posts() {
         fetchPosts(1, newFilters);
     };
 
+    const handleSearch = (value) => {
+        setSearch(value);
+        fetchPosts(1, filters, value);
+    }
+
     return (
         <div className="d-flex flex-column text-white vh-100">
             <Headers
@@ -100,22 +106,9 @@ function Posts() {
                         />
                     </div>
                     <div className="border pt-1 pt-md-4 home_content d-flex flex-column align-items-center" >
-                        <div className="mb-3 d-flex flex-row">
-                            <input
-                                type="text"
-                                placeholder="Search posts..."
-                                className="form-control"
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                            />
-
-                            <button
-                                className="btn btn-primary mt-2"
-                                onClick={() => fetchPosts(1, filters)}
-                            >
-                                Search
-                            </button>
-                        </div>
+                        <SearchPost
+                            search={handleSearch}
+                        />
                         {posts.map((post) => (
                             <div key={post.id} className="each_post_div border pt-2 rounded p-1 mb-3 bg-black">
                                 <div className="d-flex flex-row justify-content-between reg_fs border-bottom">
