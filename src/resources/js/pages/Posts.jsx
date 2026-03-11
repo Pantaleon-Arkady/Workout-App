@@ -13,6 +13,8 @@ function Posts() {
     const [page, setPage] = useState(1);
     const [lastPage, setLastPage] = useState(null);
 
+    const [search, setSearch] = useState("");
+
     const [filters, setFilters] = useState({
         user_id: null,
         sort: "latest"
@@ -29,7 +31,8 @@ function Posts() {
                 params: {
                     page: pageNumber,
                     user_id: newFilters.user_id,
-                    sort: newFilters.sort
+                    sort: newFilters.sort,
+                    search: search
                 }
             });
 
@@ -97,6 +100,22 @@ function Posts() {
                         />
                     </div>
                     <div className="border pt-1 pt-md-4 home_content d-flex flex-column align-items-center" >
+                        <div className="mb-3 d-flex flex-row">
+                            <input
+                                type="text"
+                                placeholder="Search posts..."
+                                className="form-control"
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                            />
+
+                            <button
+                                className="btn btn-primary mt-2"
+                                onClick={() => fetchPosts(1, filters)}
+                            >
+                                Search
+                            </button>
+                        </div>
                         {posts.map((post) => (
                             <div key={post.id} className="each_post_div border pt-2 rounded p-1 mb-3 bg-black">
                                 <div className="d-flex flex-row justify-content-between reg_fs border-bottom">
