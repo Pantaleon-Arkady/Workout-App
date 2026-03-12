@@ -89,67 +89,71 @@ function Posts() {
                 page="post"
                 onSort={sortPosts}
             />
-            {loading && <span>Loading Posts...</span>}
 
-            {!loading && posts.length == 0 && (
-                <div className="text-white">No posts retrieved</div>
-            )}
-
-            {!loading && posts.length > 0 && (
-                <div className="d-flex homepage_main_div">
-                    <div className="desktop_side_tab border w-25 flex-column align-items-center">
-                        <GreetingsDiv
-                            username={user.name}
-                        />
-                        <SortPosts
-                            onSort={sortPosts}
-                        />
-                    </div>
-                    <div className="border pt-1 pt-md-4 home_content d-flex flex-column align-items-center" >
-                        <SearchPost
-                            search={handleSearch}
-                        />
-                        {posts.map((post) => (
-                            <div key={post.id} className="each_post_div border pt-2 rounded p-1 mb-3 bg-black">
-                                <div className="d-flex flex-row justify-content-between reg_fs border-bottom">
-                                    <span>{post.user.name}</span>
-                                    <span>
-                                        {new Date(post.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} ~ {new Date(post.created_at).toLocaleDateString()} {" "}
-                                    </span>
-                                </div>
-                                <div className="mt-1">
-                                    {post.title}
-                                </div>
-                                <hr />
-                                <div className="content_fs">
-                                    {post.content}
-                                </div>
-                            </div>
-                        ))}
-                        <div className="d-flex gap-2 mt-3 p-2 m-2">
-
-                            <button
-                                className="btn btn-outline-primary"
-                                disabled={page === 1}
-                                onClick={() => fetchPosts(page - 1)}
-                            >
-                                Previous
-                            </button>
-
-                            <span className="mt-2">Page {page}</span>
-
-                            <button
-                                className="btn btn-outline-primary"
-                                disabled={page === lastPage}
-                                onClick={() => fetchPosts(page + 1)}
-                            >
-                                Next
-                            </button>
-
-                        </div>
-                    </div>
+            <div className="d-flex homepage_main_div">
+                <div className="desktop_side_tab border w-25 flex-column align-items-center">
+                    <GreetingsDiv
+                        username={user?.name}
+                    />
+                    <SortPosts
+                        onSort={sortPosts}
+                    />
                 </div>
-            )}
+                <div className="border pt-1 pt-md-4 home_content d-flex flex-column align-items-center" >
+                    <SearchPost
+                        search={handleSearch}
+                    />
+                    {loading && <span>Loading Posts...</span>}
+
+                    {!loading && posts.length == 0 && (
+                        <div className="text-white">No posts retrieved</div>
+                    )}
+
+                    {!loading && posts.length > 0 && (
+                        <div className="border">
+                            {posts.map((post) => (
+                                <div key={post.id} className="each_post_div border pt-2 rounded p-1 mb-3 bg-black">
+                                    <div className="d-flex flex-row justify-content-between reg_fs border-bottom">
+                                        <span>{post.user.name}</span>
+                                        <span>
+                                            {new Date(post.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} ~ {new Date(post.created_at).toLocaleDateString()} {" "}
+                                        </span>
+                                    </div>
+                                    <div className="mt-1">
+                                        {post.title}
+                                    </div>
+                                    <hr />
+                                    <div className="content_fs">
+                                        {post.content}
+                                    </div>
+                                </div>
+                            ))}
+                            <div className="d-flex gap-2 mt-3 p-2 m-2">
+
+                                <button
+                                    className="btn btn-outline-primary"
+                                    disabled={page === 1}
+                                    onClick={() => fetchPosts(page - 1)}
+                                >
+                                    Previous
+                                </button>
+
+                                <span className="mt-2">Page {page}</span>
+
+                                <button
+                                    className="btn btn-outline-primary"
+                                    disabled={page === lastPage}
+                                    onClick={() => fetchPosts(page + 1)}
+                                >
+                                    Next
+                                </button>
+
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+
         </div>
     )
 }
