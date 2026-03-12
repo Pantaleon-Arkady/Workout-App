@@ -10,6 +10,7 @@ import SearchPost from "../components/SearchPost";
 function Posts() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [logged, setLogged] = useState(false);
 
     const [page, setPage] = useState(1);
     const [lastPage, setLastPage] = useState(null);
@@ -23,11 +24,26 @@ function Posts() {
 
     const { user } = useAuth();
 
+    function updateURL(pageNumber, filtersValue, searchValue) {
+
+        const params = new URLSearchParams();
+    
+        params.set("page", pageNumber);
+    
+        if (searchValue) params.set("search", searchValue);
+        if (filtersValue.sort) params.set("sort", filtersValue.sort);
+        if (filtersValue.user_id) params.set("user_id", filtersValue.user_id);
+    
+        window.history.pushState({}, "", `?${params.toString()}`);
+    }
+
     async function fetchPosts(pageNumber = page, newFilters = filters, searchValue = search) {
+
         setLoading(true);
-
+    
+        updateURL(pageNumber, newFilters, searchValue);
+    
         try {
-
             const res = await axios.get("/api/posts", {
                 params: {
                     page: pageNumber,
@@ -36,11 +52,11 @@ function Posts() {
                     search: searchValue
                 }
             });
-
+    
             setPosts(res.data.data);
             setPage(res.data.current_page);
             setLastPage(res.data.last_page);
-
+    
         } catch (err) {
             console.error("Fetch failed:", err);
         } finally {
@@ -49,7 +65,23 @@ function Posts() {
     }
 
     useEffect(() => {
-        fetchPosts();
+        const params = new URLSearchParams(window.location.search);
+    
+        const pageParam = Number(params.get("page")) || 1;
+        const searchParam = params.get("search") || "";
+        const sortParam = params.get("sort") || "latest";
+        const userParam = params.get("user_id");
+    
+        const newFilters = {
+            user_id: userParam,
+            sort: sortParam
+        };
+    
+        setSearch(searchParam);
+        setFilters(newFilters);
+        setPage(pageParam);
+    
+        fetchPosts(pageParam, newFilters, searchParam);
     }, []);
 
     const sortPosts = (type) => {
@@ -110,7 +142,7 @@ function Posts() {
                     )}
 
                     {!loading && posts.length > 0 && (
-                        <div className="border">
+                        <div className="d-flex flex-column align-items-center">
                             {posts.map((post) => (
                                 <div key={post.id} className="each_post_div border pt-2 rounded p-1 mb-3 bg-black">
                                     <div className="d-flex flex-row justify-content-between reg_fs border-bottom">
@@ -119,8 +151,16 @@ function Posts() {
                                             {new Date(post.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} ~ {new Date(post.created_at).toLocaleDateString()} {" "}
                                         </span>
                                     </div>
-                                    <div className="mt-1">
-                                        {post.title}
+                                    <div className="mt-1 w-100 d-flex flex-row justify-content-between">
+                                        <span>
+                                            {post.title}
+                                        </span>
+                                        {post.user_id === user?.id && (
+                                            <button>
+                                                <img src="/statics/three-v-dot.svg"/>
+                                            </button>
+                                        )
+                                        }
                                     </div>
                                     <hr />
                                     <div className="content_fs">
