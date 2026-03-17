@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { Dropdown } from "react-bootstrap";
 import SortPosts from "../components/SortPosts";
 import SearchPost from "../components/SearchPost";
+import ModPost from "../components/ModPost";
 
 function Posts() {
     const [posts, setPosts] = useState([]);
@@ -156,9 +157,9 @@ function Posts() {
                                             {post.title}
                                         </span>
                                         {post.user_id === user?.id && (
-                                            <button>
-                                                <img src="/statics/three-v-dot.svg"/>
-                                            </button>
+                                            <ModPost
+                                                postId={post.id}
+                                            />
                                         )
                                         }
                                     </div>
