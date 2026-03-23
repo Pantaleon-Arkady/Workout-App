@@ -159,6 +159,7 @@ function Posts() {
                                         {post.user_id === user?.id && (
                                             <ModPost
                                                 postId={post.id}
+                                                onDelete={() => fetchPosts(page, filters, search)}
                                             />
                                         )
                                         }
