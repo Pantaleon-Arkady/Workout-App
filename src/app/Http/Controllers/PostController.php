@@ -9,6 +9,32 @@ use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
+    public function deletePost(Request $request)
+    {
+        Log::info('Auth user', ['user' => Auth::user(), 'id' => Auth::id()]);
+        Log::info('Cookies', ['cookies' => $request->cookies->all()]);
+
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthenticated'], 401);
+        }
+
+        $post = Post::find($request->postId);
+
+        if (!$post) {
+            return response()->json(['message' => 'Post not found'], 404);
+        }
+    
+        if (Auth::id() !== $post->user_id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $post->delete();
+
+        return response()->json([
+            'message' => 'Post deleted successfully'
+        ], 200);
+    }
+
     public function retrievePost(Request $request)
     {
         $query = Post::with('user');
