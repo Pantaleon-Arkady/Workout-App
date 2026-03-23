@@ -1,12 +1,36 @@
-
+import { useState } from "react";
 
 function ModPost({ postId }) {
+    const [mod, setMod] = useState(false);
+
+    const handleDelete = async () => {
+        try {
+            
+        } catch {
+
+        }
+    }
 
     return (
         <>
-            <button>
+            <button
+                onClick={() => setMod(!mod)}
+            >
                 <img src="/statics/three-v-dot.svg" />
             </button>
+            {mod &&
+                <div className="nav_tab position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-flex justify-content-center align-items-center">
+                    <div className="post_mod_div p-2 bg-black rounded">
+                        <button className="btn btn-outline-primary">Edit</button>
+                        <button 
+                            onClick={() => handleDelete()}
+                            className="btn btn-outline-danger"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            }
         </>
     )
 }

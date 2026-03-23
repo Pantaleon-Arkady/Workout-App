@@ -121,6 +121,15 @@ html, body {
     width: 98%;
 }
 
+.post_mod_div {
+    width: 70%;
+    height: 35vh;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
 /* Post Form */
 
 .post_form_div {
@@ -205,7 +214,13 @@ html, body {
         width: 80%;
     }
 
-    /* each_post_div */
+    /* Post */
+
+    .post_mod_div {
+        width: 40%;
+        height: 40vh;
+        flex-flow: row;
+    }
 
     .each_post_div {
         width: 60%;
