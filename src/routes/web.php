@@ -24,6 +24,7 @@ Route::get('/check-auth', function () {
 });
 
 Route::post('/create-post', [PostController::class, 'createPost']);
+Route::post('/delete-post', [PostController::class, 'deletePost']);
 
 Route::prefix('api')->middleware(['auth:sanctum'])->group(function () {
     Route::get('/posts', [PostController::class, 'retrievePost']);
