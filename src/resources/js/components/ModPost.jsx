@@ -1,13 +1,16 @@
 import { useState } from "react";
+import axios from "../../../axios";
 
-function ModPost({ postId }) {
+function ModPost({ postId, onDelete }) {
     const [mod, setMod] = useState(false);
 
     const handleDelete = async () => {
         try {
-            
-        } catch {
+            await axios.post("/delete-post", { postId }, { withCredentials: true });
 
+            onDelete();
+        } catch {
+            console.error(err);
         }
     }
 
