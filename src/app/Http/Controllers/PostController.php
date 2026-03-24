@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
+    public function show(Post $post)
+    {
+        return response()->json($post);
+    }
+
     public function deletePost(Request $request)
     {
         $request->validate([
