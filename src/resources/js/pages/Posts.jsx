@@ -7,11 +7,14 @@ import { Dropdown } from "react-bootstrap";
 import SortPosts from "../components/SortPosts";
 import SearchPost from "../components/SearchPost";
 import ModPost from "../components/ModPost";
+import { useLocation } from "react-router-dom";
 
 function Posts() {
+    const { user } = useAuth();
+    const location = useLocation();
+
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [logged, setLogged] = useState(false);
 
     const [page, setPage] = useState(1);
     const [lastPage, setLastPage] = useState(null);
@@ -22,8 +25,6 @@ function Posts() {
         user_id: null,
         sort: "latest"
     });
-
-    const { user } = useAuth();
 
     function updateURL(pageNumber, filtersValue, searchValue) {
 
@@ -83,7 +84,7 @@ function Posts() {
         setPage(pageParam);
     
         fetchPosts(pageParam, newFilters, searchParam);
-    }, []);
+    }, [location.key]);
 
     const sortPosts = (type) => {
 
