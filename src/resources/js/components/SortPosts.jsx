@@ -1,36 +1,25 @@
 import { Dropdown } from "react-bootstrap";
 
-function SortPosts({ onSort, screen }) {
-
+function SortPosts({ onSort, currentSort, screen }) {
     return (
         <Dropdown className={`
-              ${screen === "desktop" ? "d-md-none d-block" : ""}
-            `}>
-
+            ${screen === "desktop" ? "d-md-none d-block" : ""}
+        `}>
             <Dropdown.Toggle variant="primary">
-                Sort Posts
+                Sort: {currentSort === "oldest" ? "Oldest" : "Latest"}
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-                <Dropdown.Item onClick={() => onSort('all')}>
-                    All Posts
-                </Dropdown.Item>
-
-                <Dropdown.Item onClick={() => onSort('user')}>
-                    Personal Posts
-                </Dropdown.Item>
-
-                <Dropdown.Item onClick={() => onSort('latest')}>
+                <Dropdown.Item onClick={() => onSort("latest")}>
                     Latest Posts
                 </Dropdown.Item>
 
-                <Dropdown.Item onClick={() => onSort('oldest')}>
-                    Old Posts
+                <Dropdown.Item onClick={() => onSort("oldest")}>
+                    Oldest Posts
                 </Dropdown.Item>
             </Dropdown.Menu>
-
         </Dropdown>
-    )
+    );
 }
 
 export default SortPosts;
