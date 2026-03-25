@@ -27,6 +27,7 @@ Route::post('/create-post', [PostController::class, 'createPost']);
 Route::post('/delete-post', [PostController::class, 'deletePost']);
 
 Route::prefix('api')->middleware(['auth:sanctum'])->group(function () {
+    Route::put('/posts/{post}', [PostController::class, 'updatePost']);
     Route::get('/posts/{post}', [PostController::class, 'show']);
     Route::get('/posts', [PostController::class, 'retrievePost']);
     Route::get('/users', [UserController::class, 'index']);

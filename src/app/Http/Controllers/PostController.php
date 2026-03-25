@@ -9,6 +9,25 @@ use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
+    public function updatePost(Request $request, Post $post)
+    {
+        if (Auth::id() !== $post->user_id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $validated = $request->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+
+        $post->update([
+            'title' => strip_tags($validated['title']),
+            'content' => strip_tags($validated['content'])
+        ]);
+
+        return response()->json(['message' => 'Updated']);
+    }
+
     public function show(Post $post)
     {
         return response()->json($post);
