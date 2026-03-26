@@ -3,11 +3,11 @@ import Headers from "../components/Header";
 import axios from "../../../axios";
 import GreetingsDiv from "../components/Greetings";
 import { useAuth } from "../context/AuthContext";
-import { Dropdown } from "react-bootstrap";
 import SortPosts from "../components/SortPosts";
 import SearchPost from "../components/SearchPost";
 import ModPost from "../components/ModPost";
 import { useLocation } from "react-router-dom";
+import FilterPosts from "../components/FilterPosts";
 
 function Posts() {
     const { user } = useAuth();
@@ -86,29 +86,34 @@ function Posts() {
         fetchPosts(pageParam, newFilters, searchParam);
     }, [location.key]);
 
-    const sortPosts = (type) => {
-
+    const handleFilter = (type) => {
         let newFilters = { ...filters };
-
+    
         if (type === "all") {
             newFilters.user_id = null;
         }
-
+    
         if (type === "user") {
             newFilters.user_id = user.id;
         }
-
+    
+        setFilters(newFilters);
+        fetchPosts(1, newFilters, search);
+    };
+    
+    const handleSort = (type) => {
+        let newFilters = { ...filters };
+    
         if (type === "latest") {
             newFilters.sort = "latest";
         }
-
+    
         if (type === "oldest") {
             newFilters.sort = "oldest";
         }
-
+    
         setFilters(newFilters);
-
-        fetchPosts(1, newFilters);
+        fetchPosts(1, newFilters, search);
     };
 
     const handleSearch = (value) => {
@@ -121,7 +126,8 @@ function Posts() {
             <Headers
                 rightFeature={true}
                 page="post"
-                onSort={sortPosts}
+                onSort={handleSort}
+                onFilter={handleFilter}
             />
 
             <div className="d-flex homepage_main_div">
@@ -129,8 +135,14 @@ function Posts() {
                     <GreetingsDiv
                         username={user?.name}
                     />
-                    <SortPosts
-                        onSort={sortPosts}
+                    <FilterPosts 
+                        onFilter={handleFilter}
+                        currentFilter={filters.user_id ? "user" : "all"}
+                    />
+
+                    <SortPosts 
+                        onSort={handleSort}
+                        currentSort={filters.sort}
                     />
                 </div>
                 <div className="border pt-1 pt-md-4 home_content d-flex flex-column align-items-center" >
