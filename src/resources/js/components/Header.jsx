@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../axios";
 
-function Headers({ rightFeature, page, onSort }) {
+function Headers({ rightFeature, page, onSort, onFilter }) {
     const { user, logout } = useAuth();
 
     const navigate = useNavigate();
@@ -65,6 +65,7 @@ function Headers({ rightFeature, page, onSort }) {
             {page === "post" && (
                 <Post
                     onSort={onSort}
+                    onFilter={onFilter}
                 />
             )}
 
